@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="buttons-container">
+    <button
+      class="btn btn-primary btn-lg"
+      (click)="createUser()"
+      type="button"
+      role="button"
+    >
+      Incluir
+    </button>
+    <button
+      class="btn btn-success btn-lg"
+      (click)="editUser()"
+      [disabled]="!isClientSelected"
+    >
+      Editar
+    </button>
+  </div>
+  <ag-grid-angular
+    style="width: 100%; height: 100%"
+    class="ag-theme-alpine"
+    [rowData]="clientService.clients"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    rowSelection="single"
+    (rowSelected)="onRowSelected($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+  >
+  </ag-grid-angular>
+</div>
+
+<!-- [routerLink]="['/clients', clientSelected]" -->
