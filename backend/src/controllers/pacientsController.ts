@@ -29,14 +29,39 @@ export const createPacient = async (
     next: NextFunction
 ) => {
     try {
-        const { nome, idade, cidade, estado } = request.body;
+        const { nome, email, cpf, dataNascimento } = request.body;
+
+        function getAge(birthDayDateString: string) {
+            const from = birthDayDateString.split("/");
+            const birthdateTimeStamp = new Date(
+                parseInt(from[2]),
+                parseInt(from[1]) - 1,
+                parseInt(from[0])
+            );
+
+            const today = new Date();
+
+            var age = today.getFullYear() - birthdateTimeStamp.getFullYear();
+
+            const month = today.getMonth() - birthdateTimeStamp.getMonth();
+
+            if (
+                month < 0 ||
+                (month == 0 && today.getDate() < birthdateTimeStamp.getDate())
+            ) {
+                age = age - 1;
+            }
+
+            return age;
+        }
+        const calculatedAge = getAge(dataNascimento);
 
         const newPacient = await Pacient.create({
             nome,
-            idade,
-            cidade,
-            estado,
-            dataCadastro: Date.now(),
+            email,
+            cpf,
+            dataNascimento,
+            idade: calculatedAge,
         });
 
         response.status(200).json({
