@@ -6,7 +6,7 @@ Servidor hospedado e rodando pelo heroku.
 
 Banco de dados utilizado: MongoDB
 
-https://odapp-challenge.herokuapp.com/api/v1/pacients
+https://sabium-challenge.herokuapp.com/api/v1/pacients
 
 ---
 

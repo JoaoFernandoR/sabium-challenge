@@ -1,2 +1,49 @@
-<p>form-clients works!</p>
-<p>{{ userSelected }}</p>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>Nome</label>
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="Nome..."
+      formControlName="nome"
+    />
+    <label>E-mail</label>
+    <input
+      type="email"
+      class="form-control mb-3"
+      placeholder="E-mail"
+      formControlName="email"
+    />
+    <div class="form-row">
+      <div class="col-6">
+        <label>Data nascimento</label>
+        <input
+          type="date"
+          class="form-control mb-3"
+          formControlName="dataNascimento"
+        />
+      </div>
+      <div class="col-6">
+        <label>CPF</label>
+        <input
+          type="text"
+          class="form-control mb-3"
+          placeholder="000.000.000-00"
+          formControlName="cpf"
+          mask="000.000.000-99"
+        />
+      </div>
+    </div>
+    <ngb-alert [type]="alertType" *ngIf="message">{{ message }}</ngb-alert>
+
+    <div class="containerButton mt-4">
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        [disabled]="form.invalid"
+      >
+        Editar usuário
+      </button>
+    </div>
+  </form>
+</div>

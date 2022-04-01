@@ -58,10 +58,14 @@ export class CreateClientComponent implements OnInit {
 
     console.log(this.form.value);
 
-    this.clientsService.createClient(this.form.value).subscribe((data) => {
-      if (data.status === 'success') {
+    this.clientsService.createClient(this.form.value).subscribe(
+      (response) => {
         this.router.navigateByUrl('/');
+      },
+      (error) => {
+        this.alertType = 'danger';
+        this.message = error.error.message;
       }
-    });
+    );
   }
 }

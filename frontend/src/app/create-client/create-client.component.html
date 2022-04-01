@@ -37,13 +37,13 @@
     <ngb-alert [type]="alertType" *ngIf="message">{{ message }}</ngb-alert>
 
     <div class="containerButton mt-4">
-      <button type="submit" class="btn btn-primary btn-lg btn-block">
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        [disabled]="form.invalid"
+      >
         Criar usuário
       </button>
     </div>
   </form>
 </div>
-
-<!-- // [ngClass]="{
-            'is-invalid': submitted && f.cpf.errors
-          }" -->

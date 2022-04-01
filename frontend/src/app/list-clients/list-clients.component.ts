@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // Interfaces
-import {
-  ColDef,
-  RowSelectedEvent,
-  SelectionChangedEvent,
-} from 'ag-grid-community';
+import { ColDef, SelectionChangedEvent } from 'ag-grid-community';
 // Services
 import { ClientsService } from '../clients.service';
 
+import { ModalListComponent } from './modal-list/modal-list.component';
 import ColumnDefs from './column-defs';
 import DefaultColDef from './default-column-defs';
 
@@ -21,9 +19,12 @@ export class ListClientsComponent implements OnInit {
   columnDefs: ColDef[] = ColumnDefs;
   defaultColDef = {};
   isClientSelected = 0;
-  public clientSelected = {};
 
-  constructor(public clientService: ClientsService, private router: Router) {
+  constructor(
+    public clientService: ClientsService,
+    private router: Router,
+    private modalService: NgbModal
+  ) {
     this.columnDefs = ColumnDefs;
     this.defaultColDef = DefaultColDef;
   }
@@ -37,17 +38,24 @@ export class ListClientsComponent implements OnInit {
   }
 
   editUser() {
-    this.router.navigate(['/clients'], {
-      queryParams: this.clientSelected,
-    });
+    this.router.navigate(['/clients']);
   }
 
-  onRowSelected(event: RowSelectedEvent) {
-    this.clientSelected = event.data;
+  deleteUser() {
+    if (this.isClientSelected) {
+      const modalRef = this.modalService.open(ModalListComponent, {
+        centered: true,
+        size: 'md',
+      });
+      this.isClientSelected = 0;
+    }
   }
 
   onSelectionChanged(event: SelectionChangedEvent) {
     const rowCount = event.api.getSelectedNodes().length;
     this.isClientSelected = rowCount;
+
+    const selectedRow = event.api.getSelectedRows();
+    this.clientService.userSelected = selectedRow[0];
   }
 }

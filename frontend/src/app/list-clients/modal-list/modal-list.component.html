@@ -1,0 +1,14 @@
+<div class="container">
+  <p>Tem certeza que quer deletar esse cliente ?</p>
+  <div class="buttons-container">
+    <button
+      class="btn btn-dark btn-lg ml-2"
+      (click)="activeModal.dismiss('Button')"
+    >
+      Cancelar
+    </button>
+    <button class="btn btn-danger btn-lg" (click)="deleteClient()">
+      Deletar
+    </button>
+  </div>
+</div>

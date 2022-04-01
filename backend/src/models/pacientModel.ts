@@ -7,16 +7,16 @@ const pacientSchema = new mongoose.Schema(
         nome: {
             type: String,
             trim: true,
-            required: [true, "Please, insert a valid pacientname"],
-            minlength: [5, "The name must have more than 5 characters"],
-            maxlength: [40, "The name must have less than 40 characters"],
+            required: [true, "Por favor, digite um nome"],
+            minlength: [5, "O nome precisa ter mais de 5 caracteres"],
+            maxlength: [40, "O nome precisa ter menos de 40 caracteres"],
         },
         email: {
             type: String,
-            required: [true, "Must have a valid e-mail"],
+            required: [true, "Precisa ser um e-mail válido"],
             unique: true,
             lowercase: true,
-            validate: [validator.isEmail, "Please enter a valid e-mail"],
+            validate: [validator.isEmail, "Precisa ser um e-mail válido"],
         },
         cpf: {
             type: String,
@@ -26,7 +26,7 @@ const pacientSchema = new mongoose.Schema(
                 validator: function (val: string) {
                     return cpf.isValid(val);
                 },
-                message: "Must be a valid CNPJ",
+                message: "Por favor insira um CPF válido",
             },
         },
         dataNascimento: {
